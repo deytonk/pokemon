@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import './App.css';
 
 class Pokedex extends Component {
+  state = {
+    pokemon: null
+  }
 
-  // renderCharacters(){
-  //   const { pokemon } = this.state;
-  //   if(pokemon && pokemon.length > 0){
-  //     return pokemon.map((obj, key) =>{
-  //       return <p key={key}>{obj.name}</p>
-  //     })
-  //   }
-  // }
+  renderPokedex(){
+    const { pokemon } = this.state;
+    if(pokemon && pokemon.length > 0){
+      return pokemon.map((obj, key) =>{
+        return <p key={key}>{obj.characteristics}</p>
+      })
+    }
+  }
 
   render() {
     return (
       <div>
-        Hello World!
+        {this.renderPokedex()}
       </div>
     );
   }

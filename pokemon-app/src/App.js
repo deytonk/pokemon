@@ -13,7 +13,11 @@ import MenuItem from 'material-ui/MenuItem';
 
 const pokeStyle = {
   textTransform: 'uppercase',
-  textAlign: 'center'
+  textAlign: 'center',
+}
+
+const menuStyle = {
+  alignItems: 'center'
 }
 
 class App extends Component {
@@ -46,7 +50,7 @@ class App extends Component {
     const { pokemon } = this.state;
     if(pokemon && pokemon.length > 0){
       return pokemon.map((obj, key) =>{
-        return <p style={pokeStyle} key={key}>{obj.name}</p>
+        return <Link to="/Pokedex.js"><li style={pokeStyle} key={key}>{obj.name}</li></Link>
       })
     }
   }
@@ -55,8 +59,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <DropDownMenu anchorOrigin={'middle'} maxHeight={300}>
-            <MenuItem><Link to="/Pokedex.js">{this.renderPokemon()}</Link></MenuItem>
+          <DropDownMenu style={menuStyle} iconButton={<img src="../src/images/pokeball.jpg" />} maxHeight={500}>
+            <MenuItem>{this.renderPokemon()}</MenuItem>
           </DropDownMenu>
 
           <Route exact path="/Pokedex.js" component={Pokedex}/>
