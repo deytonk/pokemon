@@ -8,8 +8,12 @@ import {
 } from 'react-router-dom';
 import Pokedex from './Pokedex';
 
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 const pokeStyle = {
   textTransform: 'uppercase',
+  textAlign: 'center'
 }
 
 class App extends Component {
@@ -38,7 +42,7 @@ class App extends Component {
 
   handleClose = () => this.setState({open: false});
 
-  renderCharacters(){
+  renderPokemon(){
     const { pokemon } = this.state;
     if(pokemon && pokemon.length > 0){
       return pokemon.map((obj, key) =>{
@@ -51,7 +55,11 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Link to="/Pokedex.js">{this.renderCharacters()}</Link>
+          <DropDownMenu anchorOrigin={'middle'} maxHeight={300}>
+            <MenuItem><Link to="/Pokedex.js">{this.renderPokemon()}</Link></MenuItem>
+          </DropDownMenu>
+
+          <Route exact path="/Pokedex.js" component={Pokedex}/>
         </div>
       </Router>
     );
