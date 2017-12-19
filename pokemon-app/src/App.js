@@ -13,17 +13,28 @@ import MenuItem from 'material-ui/MenuItem';
 
 const pokeStyle = {
   textTransform: 'uppercase',
-  textAlign: 'center',
+  listStyleType: 'none',
+  textDecoration: 'none',
 }
 
 const menuStyle = {
-  alignItems: 'center'
+  marginLeft: '45%',
+  marginTop: '100px'
 }
 
 class App extends Component {
   state = {
     pokemon: null
   }
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {open: false};
+  // }
+  //
+  // handleToggle = () => this.setState({open: !this.state.open});
+  //
+  // handleClose = () => this.setState({open: false});
 
   componentDidMount(){
    const that = this;
@@ -37,20 +48,11 @@ class App extends Component {
     });
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
-
-  handleToggle = () => this.setState({open: !this.state.open});
-
-  handleClose = () => this.setState({open: false});
-
   renderPokemon(){
     const { pokemon } = this.state;
     if(pokemon && pokemon.length > 0){
       return pokemon.map((obj, key) =>{
-        return <Link to="/Pokedex.js"><li style={pokeStyle} key={key}>{obj.name}</li></Link>
+        return <ol><Link to="/Pokedex.js"><li style={pokeStyle} key={key}>{obj.name}</li></Link></ol>
       })
     }
   }
@@ -59,11 +61,12 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <DropDownMenu style={menuStyle} iconButton={<img src="../src/images/pokeball.jpg" />} maxHeight={500}>
+          <DropDownMenu style={menuStyle} iconButton={<img src="https://images-na.ssl-images-amazon.com/images/I/510JE1W%2BdlL._UX385_.jpg" alt={"Pokeball"} height={100} width={100} />} maxHeight={500}>
             <MenuItem>{this.renderPokemon()}</MenuItem>
           </DropDownMenu>
 
-          <Route exact path="/Pokedex.js" component={Pokedex}/>
+          <Route exact path="/" component={App}/>
+          <Route path="/Pokedex.js" component={Pokedex}/>
         </div>
       </Router>
     );
