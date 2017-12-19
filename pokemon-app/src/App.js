@@ -13,13 +13,17 @@ import MenuItem from 'material-ui/MenuItem';
 
 const pokeStyle = {
   textTransform: 'uppercase',
+  textAlign: 'center',
   listStyleType: 'none',
-  textDecoration: 'none',
 }
 
 const menuStyle = {
   marginLeft: '45%',
   marginTop: '100px'
+}
+
+const reset = {
+  marginLeft: '-35%',
 }
 
 class App extends Component {
@@ -36,16 +40,20 @@ class App extends Component {
   //
   // handleClose = () => this.setState({open: false});
 
+  handleChange = (event, index, value) => this.setState({value});
+
   componentDidMount(){
-   const that = this;
-   fetch('https://pokeapi.co/api/v2/pokemon-form/?limit=10&offset=0')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      that.setState({pokemon: responseJson.results})
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    const that = this;
+    for (let i = 0; i < 152; i++) {
+     fetch(`https://pokeapi.co/api/v2/pokemon-form/${i}/?limit=151&offset=0`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        that.setState({pokemon: responseJson.results})
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
   }
 
   renderPokemon(){
@@ -61,8 +69,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <DropDownMenu style={menuStyle} iconButton={<img src="https://images-na.ssl-images-amazon.com/images/I/510JE1W%2BdlL._UX385_.jpg" alt={"Pokeball"} height={100} width={100} />} maxHeight={500}>
-            <MenuItem>{this.renderPokemon()}</MenuItem>
+          <DropDownMenu style={menuStyle} iconButton={<img src="https://images-na.ssl-images-amazon.com/images/I/510JE1W%2BdlL._UX385_.jpg" alt={"Pokeball"} height={100} width={100} />} onChange={this.handleChange} maxHeight={500}>
+            <MenuItem style={reset} >{this.renderPokemon()}</MenuItem>
           </DropDownMenu>
 
           <Route exact path="/" component={App}/>
